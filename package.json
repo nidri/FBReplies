@@ -1,0 +1,30 @@
+{
+  "name": "fbreplies",
+  "version": "1.0.0",
+  "description": "Automatic replies to posts in Facebook.",
+  "main": "index.js",
+  "scripts": {
+    "test": "console.log(\"FBReplies project\");"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/santu9/FBReplies.git"
+  },
+  "keywords": [
+    "Birthday",
+    "wish",
+    "reply",
+    "Facebook",
+    "auto",
+    "reply"
+  ],
+  "author": "Krishna Santosh Nidri",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/santu9/FBReplies/issues"
+  },
+  "homepage": "https://github.com/santu9/FBReplies#readme",
+  "dependencies": {
+    "fb": "^2.0.0"
+  }
+}
