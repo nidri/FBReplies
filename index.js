@@ -1,3 +1,5 @@
 //Get FB object.
-var FB = require('fb');
-console.log("created FB variable");
+var Graph = require('fbgraph');
+console.log("created FB Graph variable");
+var Conf = require('./Config/SantoshConfig.js');
+console.log(Conf.facebook.appId);

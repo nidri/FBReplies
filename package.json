@@ -24,7 +24,5 @@
     "url": "https://github.com/santu9/FBReplies/issues"
   },
   "homepage": "https://github.com/santu9/FBReplies#readme",
-  "dependencies": {
-    "fb": "^2.0.0"
-  }
+  "dependencies": {}
 }
