@@ -60,3 +60,9 @@ function OnLogin() {
       'Thanks for logging in, ' + response.name + '!';
   });
 }
+
+function logout(response) {
+  // user is now logged out
+  console.log("Logged out");
+  console.log(response);
+}
