@@ -61,8 +61,11 @@ function OnLogin() {
   });
 }
 
-function logout(response) {
+function Logout() {
   // user is now logged out
+  FB.logout(function(response) {
+    console.log(response);
+    document.location.reload();
+  });
   console.log("Logged out");
-  console.log(response);
 }
