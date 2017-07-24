@@ -1,6 +1,7 @@
 // This is called with the results from from FB.getLoginStatus().
 function statusChangeCallback(response) {
   console.log('statusChangeCallback');
+  console.log(response.status);
   console.log(response);
   // The response object is returned with a status field that lets the
   // app know the current login status of the person.
@@ -8,12 +9,15 @@ function statusChangeCallback(response) {
   // for FB.getLoginStatus().
   if (response.status === 'connected') {
     // Logged into your app and Facebook.
-    OnLogin();
+    OnLogin(response);
   } else {
     // The person is not logged into your app or we are unable to tell.
     document.getElementById('status').innerHTML = 'Please log ' +
       'into this app.';
   }
+  // Event subscriptions
+  FB.Event.subscribe('auth.login', login_event);
+  FB.Event.subscribe('auth.logout', logout_event);
 }
 
 // This function is called when someone finishes with the Login
@@ -32,6 +36,7 @@ FB.init({
                       // the session
   xfbml      : true,  // parse social plugins on this page
   version    : 'v2.9' // use graph api version 2.8
+
 });
 console.log("Calling from inside AsyncInit");
 // Determine the login status of user
@@ -52,12 +57,14 @@ FB.getLoginStatus(function(response) {
 
 // Here we run a very simple test of the Graph API after login is
 // successful.  See statusChangeCallback() for when this call is made.
-function OnLogin() {
+function OnLogin(AuthResponse) {
   console.log('Welcome!  Fetching your information.... ');
   FB.api('/me', function(response) {
     console.log('Successful login for: ' + response.name);
     document.getElementById('status').innerHTML =
       'Thanks for logging in, ' + response.name + '!';
+      console.log(response);
+      StartFBProcessing(AuthResponse);
   });
 }
 
@@ -65,7 +72,25 @@ function Logout() {
   // user is now logged out
   FB.logout(function(response) {
     console.log(response);
+    document.getElementById('status').innerHTML =
+    "Logged out from application";
     document.location.reload();
   });
   console.log("Logged out");
+}
+
+var login_event = function(response) {
+  console.log("login_event");
+  console.log(response.status);
+  console.log(response);
+  statusChangeCallback(response);
+}
+
+var logout_event = function(response) {
+  console.log("logout_event");
+  console.log(response.status);
+  console.log(response);
+  document.getElementById('status').innerHTML =
+  "Logged out using FB button";
+  //document.location.reload();
 }

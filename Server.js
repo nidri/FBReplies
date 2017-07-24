@@ -1,7 +1,9 @@
 var http = require('http');
 var fs = require('fs');
+var ServerScripts = require('./bin/Scripts/ServerJS.js');
 var server = http.createServer(function (req, res) {
     console.log(req.url);
+    //console.log(req);
     res.writeHead(200, { 'Content-Type': 'text/html' });
     //res.write("Congratulations on completing 9 years in IT Industry!!");
     if(req.url == "/")
@@ -16,6 +18,7 @@ var server = http.createServer(function (req, res) {
       });
     }
     else {
+      ServerScripts.ParseRequestParams(req, ServerScripts.StartReqParsing);
       fs.readFile('.' + req.url, function(error, stream){
         console.log("Started reading - " + req.url);
          if(!error)
