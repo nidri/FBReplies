@@ -8,7 +8,7 @@ var server = http.createServer(function (req, res) {
     //res.write("Congratulations on completing 9 years in IT Industry!!");
     if(req.url == "/")
     {
-      fs.readFile('./Index.html', function(error, stream){
+      fs.readFile('./Public/Index.html', function(error, stream){
          if(!error)
          {
              res.write(stream);
@@ -23,6 +23,10 @@ var server = http.createServer(function (req, res) {
         console.log("Started reading - " + req.url);
          if(!error)
          {
+           if(req.url.includes("CSS"))
+           {
+             res.writeHead(200, { 'Content-Type': 'text/css' });
+           }
              res.write(stream);
              console.log("Completed reading - " + req.url);
              res.end();
