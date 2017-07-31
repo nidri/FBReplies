@@ -1,16 +1,12 @@
 /* Body */
 body {
-  font-family: Arial, sans-serif;
-  font-size: 15px;
-  line-height: 1.5;
-  padding: 0;
-  border: 0;
+  background-image: url("../Images/BGImage.jpg");
 }
 
 /* Global */
 .container{
-  width: 80%;
-  margin: auto;
+  /*width: 80%;
+  margin: auto;*/
   overflow: hidden;
 }
 
@@ -27,12 +23,13 @@ ul{
   color: white;
 }
 
+.header-list{
+  display: -webkit-inline-box;
+}
+
 /* Header */
 header{
-  background: #9e9e9e;
-  padding-top: 30px;
-  min-height: 70px;
-  border-bottom: 3px solid;
+  position: fixed;
 }
 
 header a{
@@ -40,6 +37,7 @@ header a{
   color: black;
   font-weight: bold;
   font-size: 16px;
+  padding: 10px 16px;
 }
 
 header li{
@@ -66,9 +64,7 @@ header .highlight, header .current a{
 }
 
 header a:hover{
-  background: black;
-  color: white;
-  font-weight: bold;
+  background: rgba(0, 0, 0, 0.06);
 }
 
 /* Showcase */
