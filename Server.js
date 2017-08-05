@@ -1,11 +1,23 @@
+var https = require('https');
 var http = require('http');
 var fs = require('fs');
+var options = {
+  key: fs.readFileSync('./SSL/key.pem'),
+  cert: fs.readFileSync('./SSL/certificate.pem')
+};
 var ServerScripts = require('./bin/Scripts/ServerJS.js');
-var server = http.createServer(function (req, res) {
+var httpserver = http.createServer(function(req, res){
+    console.log("Normal http request received");
+    res.writeHead(301, {'Content-Type': 'text/plain', 
+        'Location':'https://'+req.headers.host+req.url
+    });
+    res.end('Redirecting to SSL\n');
+});
+var server = https.createServer(options, function (req, res) {
     console.log("Requesting - " + req.url);
     //console.log(req);
-    res.writeHead(200, { 'Content-Type': 'text/html' });
-    //res.write("Congratulations on completing 9 years in IT Industry!!");
+    res.writeHead(200, { 'Content-Type': 'text/html',
+    "Strict-Transport-Security": "max-age=604800"});
     if(req.url == "/")
     {
       fs.readFile('./Public/Index.html', function(error, stream){
@@ -44,7 +56,9 @@ var server = http.createServer(function (req, res) {
     //console.log(res);
 
 });
-server.listen(80, function(){
+server.listen(443, function(){
     console.log("Node server is running");
     console.log("Current directory - " + process.cwd());
 });
+
+httpserver.listen(80);
