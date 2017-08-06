@@ -1,0 +1,24 @@
+/* Card styles */
+.intro-card{
+  margin: auto;
+}
+
+.intro-card.mdl-card{
+  width: 512px;
+}
+
+.intro-card > .mdl-card__title{
+  color: white;
+  height: 176px;
+  background: url('https://getmdl.io/assets/demos/welcome_card.jpg') center / cover;
+}
+
+/* Main content */
+.main-content{
+  margin-top: 30px;
+}
+
+.main-content .main-content-div{
+  margin: auto;
+  width: 100%
+}

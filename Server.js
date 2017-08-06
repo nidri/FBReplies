@@ -8,7 +8,7 @@ var options = {
 var ServerScripts = require('./bin/Scripts/ServerJS.js');
 var httpserver = http.createServer(function(req, res){
     console.log("Normal http request received");
-    res.writeHead(301, {'Content-Type': 'text/plain', 
+    res.writeHead(301, {'Content-Type': 'text/plain',
         'Location':'https://'+req.headers.host+req.url
     });
     res.end('Redirecting to SSL\n');
@@ -34,7 +34,7 @@ var server = https.createServer(options, function (req, res) {
       });
     }
     else {
-      ServerScripts.ParseRequestParams(req, ServerScripts.StartReqParsing);
+      //ServerScripts.ParseRequestParams(req, ServerScripts.StartReqParsing);
       fs.readFile('.' + req.url, function(error, stream){
         console.log("Started reading - " + req.url);
          if(!error)
@@ -46,6 +46,7 @@ var server = https.createServer(options, function (req, res) {
              res.write(stream);
              console.log("Completed reading - " + req.url);
              res.end();
+             ServerScripts.ParseRequestParams(req, ServerScripts.StartReqParsing);
          }
          else {
            console.log(error);

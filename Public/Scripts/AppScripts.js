@@ -11,7 +11,7 @@ function StartFBProcessing(AuthResponse)
 }
 
 function ProcessFBRequest(Response) {
-  document.getElementById('status').innerHTML = Response;
+  //document.getElementById('status').innerHTML = Response;
 }
 
 function FBRequest(theUrl, Params, callback)

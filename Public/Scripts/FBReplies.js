@@ -12,8 +12,8 @@ function statusChangeCallback(response) {
     OnLogin(response);
   } else {
     // The person is not logged into your app or we are unable to tell.
-    document.getElementById('status').innerHTML = 'Please log ' +
-      'into this app.';
+    //document.getElementById('status').innerHTML = 'Please log ' +
+      //'into this app.';
   }
   // Event subscriptions
   FB.Event.subscribe('auth.login', login_event);
@@ -35,7 +35,7 @@ FB.init({
   cookie     : true,  // enable cookies to allow the server to access
                       // the session
   xfbml      : true,  // parse social plugins on this page
-  version    : 'v2.9' // use graph api version 2.8
+  version    : 'v2.10' // use graph api version 2.8
 
 });
 console.log("Calling from inside AsyncInit");
@@ -61,8 +61,8 @@ function OnLogin(AuthResponse) {
   console.log('Welcome!  Fetching your information.... ');
   FB.api('/me', function(response) {
     console.log('Successful login for: ' + response.name);
-    document.getElementById('status').innerHTML =
-      'Thanks for logging in, ' + response.name + '!';
+    //document.getElementById('status').innerHTML =
+      //'Thanks for logging in, ' + response.name + '!';
       console.log(response);
       StartFBProcessing(AuthResponse);
   });
@@ -72,8 +72,8 @@ function Logout() {
   // user is now logged out
   FB.logout(function(response) {
     console.log(response);
-    document.getElementById('status').innerHTML =
-    "Logged out from application";
+    //document.getElementById('status').innerHTML =
+    //"Logged out from application";
     document.location.reload();
   });
   console.log("Logged out");
@@ -83,14 +83,15 @@ var login_event = function(response) {
   console.log("login_event");
   console.log(response.status);
   console.log(response);
-  statusChangeCallback(response);
+  //statusChangeCallback(response);
+  StartFBProcessing(response);
 }
 
 var logout_event = function(response) {
   console.log("logout_event");
   console.log(response.status);
   console.log(response);
-  document.getElementById('status').innerHTML =
-  "Logged out using FB button";
+  //document.getElementById('status').innerHTML =
+  //"Logged out using FB button";
   //document.location.reload();
 }
