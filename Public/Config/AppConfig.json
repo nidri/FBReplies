@@ -1,6 +1,6 @@
 {
   "appId":"495616707450697",
-  "appSecret":"FBSecret",
+  "appSecret":"FBAppSecret",
   "cookie":"true",
   "xfbml":"true",
   "version":"v2.10"
