@@ -58,11 +58,12 @@ GetLongLivedToken = function(){
     host: 'graph.facebook.com',
     port: 443,
     path: '/oauth/access_token?' +
-    'grant_type=fb_exchange_token&amp;' +
-    'client_id=' + appId + '&amp;' +
-    'client_secret=' + appSecret + '&amp;' +
+    'grant_type=fb_exchange_token&' +
+    'client_id=' + appId + '&' +
+    'client_secret=' + appSecret + '&' +
     'fb_exchange_token=' + access_token
   };
+  console.log("Options are - " + options.path);
   https.get(options, function(response){
     console.log("FB Long Token - " + response.statusCode);
     response.on('data', function(data){
