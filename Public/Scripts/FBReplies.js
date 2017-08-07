@@ -83,8 +83,8 @@ var login_event = function(response) {
   console.log("login_event");
   console.log(response.status);
   console.log(response);
-  //statusChangeCallback(response);
-  StartFBProcessing(response);
+  statusChangeCallback(response);
+  //StartFBProcessing(response);
 }
 
 var logout_event = function(response) {

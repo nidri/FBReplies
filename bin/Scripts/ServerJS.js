@@ -4,6 +4,7 @@ var fs = require('fs');
 var appConfig = JSON.parse(fs.readFileSync('bin/Config/FBAppConfig.json'));
 console.log(appConfig);
 var appId = appConfig.appId;
+console.log("appId - " + appId);
 var appSecret = appConfig.appSecret;
 console.log("appSecret - " + appSecret);
 exports.ParseRequestParams = function(Request, callback) {
@@ -16,7 +17,7 @@ exports.ParseRequestParams = function(Request, callback) {
   });
   Request.on('end', function () {
     //console.log('body: ' + body);
-    if(body != "")
+    if(body !== "")
     {
       callback(body);
     }
@@ -31,7 +32,7 @@ exports.StartReqParsing = function(Body)
   var UserID = Data.UserID;
   access_token = Data.AuthToken;
   console.log("UserID - " + UserID);
-  //GetLongLivedToken();
+  GetLongLivedToken();
 }
 
 GetFBDetails = function(){
