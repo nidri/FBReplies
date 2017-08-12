@@ -35,7 +35,8 @@ var server = https.createServer(options, function (req, res) {
     }
     else {
       //ServerScripts.ParseRequestParams(req, ServerScripts.StartReqParsing);
-      fs.readFile('.' + req.url, function(error, stream){
+      ServerScripts.HandleIncomingMessage(req, res);
+      /*fs.readFile('.' + req.url, function(error, stream){
         console.log("Started reading - " + req.url);
          if(!error)
          {
@@ -51,7 +52,7 @@ var server = https.createServer(options, function (req, res) {
          else {
            console.log(error);
          }
-      });
+      });*/
     }
 
     //console.log(res);

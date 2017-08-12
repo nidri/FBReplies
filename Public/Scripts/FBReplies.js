@@ -11,9 +11,7 @@ function statusChangeCallback(response) {
     // Logged into your app and Facebook.
     OnLogin(response);
   } else {
-    // The person is not logged into your app or we are unable to tell.
-    //document.getElementById('status').innerHTML = 'Please log ' +
-      //'into this app.';
+    
   }
   // Event subscriptions
   FB.Event.subscribe('auth.login', login_event);
@@ -89,8 +87,9 @@ var login_event = function(response) {
 
 var logout_event = function(response) {
   console.log("logout_event");
-  console.log(response.status);
+  console.log("Logout - " + response.status);
   console.log(response);
+  checkLoginState();
   //document.getElementById('status').innerHTML =
   //"Logged out using FB button";
   //document.location.reload();

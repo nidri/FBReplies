@@ -6,7 +6,32 @@ console.log(appConfig);
 var appId = appConfig.appId;
 console.log("appId - " + appId);
 var appSecret = appConfig.appSecret;
-console.log("appSecret - " + appSecret);
+//console.log("appSecret - " + appSecret);
+
+exports.HandleIncomingMessage = function(req, res, callback){
+    fs.readFile('.' + req.url, function(error, stream){
+        console.log("Started reading - " + req.url);
+         if(!error)
+         {
+           if(req.url.includes("CSS"))
+           {
+             res.writeHead(200, { 'Content-Type': 'text/css' });
+           }
+           else if(req.url.includes("webhook"))
+           {
+               res.writeHead(200, {'Content-Type' : 'application/json'})
+           }
+             res.write(stream);
+             console.log("Completed reading - " + req.url);
+             res.end();
+             exports.ParseRequestParams(req, exports.StartReqParsing);
+         }
+         else {
+           console.log(error);
+         }
+      });
+}
+
 exports.ParseRequestParams = function(Request, callback) {
   console.log("Parsing request params");
   //console.log(Request);
