@@ -1,41 +1,63 @@
 var access_token = "";
 var https = require('https');
+var url = require("url");
 var fs = require('fs');
+var utils = require('./Utilities.js');
 var appConfig = JSON.parse(fs.readFileSync('bin/Config/FBAppConfig.json'));
-console.log(appConfig);
+var WHToken = appConfig.webhookToken;
 var appId = appConfig.appId;
 console.log("appId - " + appId);
 var appSecret = appConfig.appSecret;
-//console.log("appSecret - " + appSecret);
 
 exports.HandleIncomingMessage = function(req, res, callback){
-    fs.readFile('.' + req.url, function(error, stream){
-        console.log("Started reading - " + req.url);
-         if(!error)
-         {
-           if(req.url.includes("CSS"))
+    if(req.url.includes("webhookverify"))
            {
-             res.writeHead(200, { 'Content-Type': 'text/css' });
+               console.log("Webhook Verification");
+               var WHData = url.parse(req.url, true).search;
+               console.log("Parse webhook data - " + WHData);
+               var hubParams = utils.ParseSearchParams(WHData);
+               res.writeHead(200, {'Content-Type' : 'text/html'});
+               if(hubParams['hub.verify_token'] === WHToken){
+                   console.log("Webhook matched - " + hubParams['hub.verify_token'] + " will send challenge - " + hubParams['hub.challenge']);
+                   //var hubchallenge = JSON.stringify({"hub.challenge":hubParams['hub.challenge']});
+                   res.end(hubParams['hub.challenge']);
+               }
            }
-           else if(req.url.includes("webhook"))
+           else if(req.url.includes("acme-challenge")){
+               fs.readFile('./Public/OtherAssets' + req.url, function(error, stream){
+                   if(!error){
+                       res.write(stream);
+                   }
+                   else{
+                       console.log("Error reading acme-challenge - " + error);
+                   }
+               });
+           }
+           else
            {
-               res.writeHead(200, {'Content-Type' : 'application/json'})
+               fs.readFile('.' + req.url, function(error, stream){
+                console.log("Started reading - " + req.url);
+                 if(!error)
+                 {
+                   if(req.url.includes("CSS"))
+                   {
+                     res.writeHead(200, { 'Content-Type': 'text/css' });
+                   }
+                     res.write(stream);
+                     console.log("Completed reading - " + req.url);
+                     res.end();
+                     exports.ParseRequestParams(req, exports.StartReqParsing);
+                 }
+                 else {
+                   console.log(error);
+                 }
+              });
            }
-             res.write(stream);
-             console.log("Completed reading - " + req.url);
-             res.end();
-             exports.ParseRequestParams(req, exports.StartReqParsing);
-         }
-         else {
-           console.log(error);
-         }
-      });
+    
 }
 
 exports.ParseRequestParams = function(Request, callback) {
   console.log("Parsing request params");
-  //console.log(Request);
-  //console.log("Done reading");
   var body = "";
   Request.on('data', function (chunk) {
     body += chunk;
@@ -56,6 +78,7 @@ exports.StartReqParsing = function(Body)
   //console.log("JSON - " + Data);
   var UserID = Data.UserID;
   access_token = Data.AuthToken;
+  GetFBDetails();
   console.log("UserID - " + UserID);
   GetLongLivedToken();
 }
@@ -67,11 +90,10 @@ GetFBDetails = function(){
     port: 443,
     path: '/me?access_token='+access_token
   };
-
   https.get(options, function(response){
-    console.log("FB - " + response.statusCode);
+    console.log("FBDetails - " + response.statusCode);
     response.on('data', function(data){
-      console.log(JSON.parse(data));
+      console.log("FBName - " + JSON.parse(data).name);
     });
   });
 };
@@ -88,7 +110,7 @@ GetLongLivedToken = function(){
     'client_secret=' + appSecret + '&' +
     'fb_exchange_token=' + access_token
   };
-  console.log("Options are - " + options.path);
+  //console.log("Options are - " + options.path);
   https.get(options, function(response){
     console.log("FB Long Token - " + response.statusCode);
     response.on('data', function(data){

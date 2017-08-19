@@ -59,8 +59,6 @@ function OnLogin(AuthResponse) {
   console.log('Welcome!  Fetching your information.... ');
   FB.api('/me', function(response) {
     console.log('Successful login for: ' + response.name);
-    //document.getElementById('status').innerHTML =
-      //'Thanks for logging in, ' + response.name + '!';
       console.log(response);
       StartFBProcessing(AuthResponse);
   });
@@ -70,8 +68,6 @@ function Logout() {
   // user is now logged out
   FB.logout(function(response) {
     console.log(response);
-    //document.getElementById('status').innerHTML =
-    //"Logged out from application";
     document.location.reload();
   });
   console.log("Logged out");
@@ -90,7 +86,4 @@ var logout_event = function(response) {
   console.log("Logout - " + response.status);
   console.log(response);
   checkLoginState();
-  //document.getElementById('status').innerHTML =
-  //"Logged out using FB button";
-  //document.location.reload();
 }

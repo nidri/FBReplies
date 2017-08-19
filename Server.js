@@ -2,19 +2,22 @@ var https = require('https');
 var http = require('http');
 var fs = require('fs');
 var options = {
-  key: fs.readFileSync('./SSL/key.pem'),
-  cert: fs.readFileSync('./SSL/certificate.pem')
+  key: fs.readFileSync('./SSL/letsencrypt/domain.key'),
+  cert: fs.readFileSync('./SSL/letsencrypt/chained.pem')
 };
 var ServerScripts = require('./bin/Scripts/ServerJS.js');
+
 var httpserver = http.createServer(function(req, res){
-    console.log("Normal http request received");
+    console.log("Normal http request received from - " + req.socket.remoteAddress + " - requesting - " + req.url);
     res.writeHead(301, {'Content-Type': 'text/plain',
         'Location':'https://'+req.headers.host+req.url
     });
     res.end('Redirecting to SSL\n');
 });
+
 var server = https.createServer(options, function (req, res) {
-    console.log("Requesting - " + req.url);
+    console.log("From - " + req.socket.remoteAddress + " - Requesting - " + req.url + " - Content-Type -- " + 
+    req.headers);
     //console.log(req);
     res.writeHead(200, { 'Content-Type': 'text/html',
     "Strict-Transport-Security": "max-age=604800"});
@@ -24,7 +27,6 @@ var server = https.createServer(options, function (req, res) {
          if(!error)
          {
              res.write(stream);
-             //console.log(stream);
              res.end();
          }
          else
@@ -34,25 +36,7 @@ var server = https.createServer(options, function (req, res) {
       });
     }
     else {
-      //ServerScripts.ParseRequestParams(req, ServerScripts.StartReqParsing);
       ServerScripts.HandleIncomingMessage(req, res);
-      /*fs.readFile('.' + req.url, function(error, stream){
-        console.log("Started reading - " + req.url);
-         if(!error)
-         {
-           if(req.url.includes("CSS"))
-           {
-             res.writeHead(200, { 'Content-Type': 'text/css' });
-           }
-             res.write(stream);
-             console.log("Completed reading - " + req.url);
-             res.end();
-             ServerScripts.ParseRequestParams(req, ServerScripts.StartReqParsing);
-         }
-         else {
-           console.log(error);
-         }
-      });*/
     }
 
     //console.log(res);
