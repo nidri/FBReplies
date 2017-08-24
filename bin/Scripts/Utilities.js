@@ -1,6 +1,6 @@
-
+/*** ParseSearchParams ***/
 exports.ParseSearchParams = function(str){
-    console.log("Parsing - " + str);
+    console.log("Parsing Webhook query- " + str);
     var Obj = {};
     var Params = str.substring(1).split("&");
     for(var i in Params){
@@ -11,3 +11,11 @@ exports.ParseSearchParams = function(str){
     }
     return Obj;
 };
+
+/*** ProcessWebhookData ***/
+exports.ProcessWebhookData = function(Body)
+{
+  console.log(Body);
+  var Data = JSON.parse(Body);
+  console.log("Webhook Data - " + Data.object);
+}

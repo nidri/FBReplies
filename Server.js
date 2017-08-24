@@ -16,31 +16,10 @@ var httpserver = http.createServer(function(req, res){
 });
 
 var server = https.createServer(options, function (req, res) {
-    console.log("From - " + req.socket.remoteAddress + " - Requesting - " + req.url + " - Content-Type -- " + 
-    req.headers);
-    //console.log(req);
-    res.writeHead(200, { 'Content-Type': 'text/html',
-    "Strict-Transport-Security": "max-age=604800"});
-    if(req.url == "/")
-    {
-      fs.readFile('./Public/Index.html', function(error, stream){
-         if(!error)
-         {
-             res.write(stream);
-             res.end();
-         }
-         else
-         {
-             console.log("Error reading Index.html file - " + error);
-         }
-      });
-    }
-    else {
-      ServerScripts.HandleIncomingMessage(req, res);
-    }
-
-    //console.log(res);
-
+    console.log("From - " + req.socket.remoteAddress + " - Requesting - " + req.url);
+    res.setHeader('Content-Type', 'text/html');
+    res.setHeader("Strict-Transport-Security", "max-age=604800");
+    ServerScripts.HandleIncomingMessage(req, res);
 });
 server.listen(443, function(){
     console.log("Node server is running");

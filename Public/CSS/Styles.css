@@ -1,3 +1,12 @@
+/* Common styles */
+a {
+    text-decoration: none;
+}
+
+.logo-link {
+    color: inherit;
+}
+
 /* Card styles */
 .intro-card{
   margin: auto;
@@ -10,7 +19,7 @@
 .intro-card > .mdl-card__title{
   color: white;
   height: 176px;
-  background: url('https://getmdl.io/assets/demos/welcome_card.jpg') center / cover;
+  background: url('../Images/NYCBridge.jpg') center / cover;
 }
 
 /* Main content */
@@ -21,4 +30,12 @@
 .main-content .main-content-div{
   margin: auto;
   width: 100%
+}
+
+/* Media queries */
+
+@media(max-width: 450px){
+  .intro-card.mdl-card{
+    width: 300px;
+  }
 }

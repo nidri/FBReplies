@@ -1,3 +1,6 @@
+// Global variables
+var user = {};
+
 // This is called with the results from from FB.getLoginStatus().
 function statusChangeCallback(response) {
   console.log('statusChangeCallback');
@@ -56,10 +59,13 @@ FB.getLoginStatus(function(response) {
 // Here we run a very simple test of the Graph API after login is
 // successful.  See statusChangeCallback() for when this call is made.
 function OnLogin(AuthResponse) {
+    user.userId = AuthResponse.authResponse.userID
   console.log('Welcome!  Fetching your information.... ');
   FB.api('/me', function(response) {
     console.log('Successful login for: ' + response.name);
-      console.log(response);
+    user.userName = response.name;
+    console.log("UserName - " + user.userName);
+      //console.log(response);
       StartFBProcessing(AuthResponse);
   });
 }
@@ -86,4 +92,10 @@ var logout_event = function(response) {
   console.log("Logout - " + response.status);
   console.log(response);
   checkLoginState();
+}
+
+var statuschange_event = function(response) {
+    console.log("statuschange_event - " + response.status);
+    console.log(response);
+    checkLoginState();
 }

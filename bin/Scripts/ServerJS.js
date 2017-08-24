@@ -9,21 +9,45 @@ var appId = appConfig.appId;
 console.log("appId - " + appId);
 var appSecret = appConfig.appSecret;
 
+/*** HandleIncomingMessage ***/
 exports.HandleIncomingMessage = function(req, res, callback){
-    if(req.url.includes("webhookverify"))
+    if(req.url == "/")
+    {
+        console.log("Requesting Index.html - " + req.url);
+      fs.readFile('./Public/Index.html', function(error, stream){
+         if(!error)
+         {
+             res.statusCode = 200;
+             res.write(stream);
+             res.end();
+         }
+         else
+         {
+             res.statusCode = 404;
+             res.write("Not Found");
+             res.end();
+             console.log("Error reading Index.html file - " + error);
+         }
+      });
+    }
+    
+    else if(req.url.includes("webhookverify")) // Handle webhook message from facebook
            {
                console.log("Webhook Verification");
                var WHData = url.parse(req.url, true).search;
                console.log("Parse webhook data - " + WHData);
                var hubParams = utils.ParseSearchParams(WHData);
-               res.writeHead(200, {'Content-Type' : 'text/html'});
+               exports.ParseRequestParams(req, utils.ProcessWebhookData);
+               //res.setHeader('Content-Type' , 'text/html');
+               res.statusCode = 200;
                if(hubParams['hub.verify_token'] === WHToken){
-                   console.log("Webhook matched - " + hubParams['hub.verify_token'] + " will send challenge - " + hubParams['hub.challenge']);
-                   //var hubchallenge = JSON.stringify({"hub.challenge":hubParams['hub.challenge']});
-                   res.end(hubParams['hub.challenge']);
+                   console.log("Webhook matched - " + hubParams['hub.verify_token'] + 
+                   " will send challenge - " + hubParams['hub.challenge']);
+                   res.write(hubParams['hub.challenge']);
                }
+               res.end();
            }
-           else if(req.url.includes("acme-challenge")){
+           else if(req.url.includes("acme-challenge")){ // Handle lets encrypt message
                fs.readFile('./Public/OtherAssets' + req.url, function(error, stream){
                    if(!error){
                        res.write(stream);
@@ -35,7 +59,7 @@ exports.HandleIncomingMessage = function(req, res, callback){
            }
            else
            {
-               fs.readFile('.' + req.url, function(error, stream){
+               fs.readFile('.' + req.url, function(error, stream){ // Handle all other files
                 console.log("Started reading - " + req.url);
                  if(!error)
                  {
@@ -50,12 +74,15 @@ exports.HandleIncomingMessage = function(req, res, callback){
                  }
                  else {
                    console.log(error);
+                   res.statusCode = 404;
+                   res.write("Not Found");
+                   res.end();
                  }
               });
            }
-    
 }
 
+/*** ParseRequestParams ***/
 exports.ParseRequestParams = function(Request, callback) {
   console.log("Parsing request params");
   var body = "";
@@ -71,6 +98,7 @@ exports.ParseRequestParams = function(Request, callback) {
 });
 }
 
+/*** StartReqParsing ***/
 exports.StartReqParsing = function(Body)
 {
   //console.log(Body);
@@ -83,6 +111,7 @@ exports.StartReqParsing = function(Body)
   GetLongLivedToken();
 }
 
+/*** GetFBDetails ***/
 GetFBDetails = function(){
   var options = {
     method: 'GET',
@@ -98,6 +127,7 @@ GetFBDetails = function(){
   });
 };
 
+/*** GetLongLivedToken ***/
 GetLongLivedToken = function(){
   //Get long lived token using short expiry token and other details.
   var options = {
