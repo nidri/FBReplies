@@ -32,6 +32,34 @@ a {
   width: 100%
 }
 
+/* Main container */
+.main-container {
+  max-width: 1600px;
+  width: calc(100% - 16px);
+  margin: 0 auto;
+}
+
+.content-section {
+  border-radius: 2px;
+  padding: 80px 56px;
+  margin-bottom: 80px;
+}
+
+/* Article content */
+
+/* aside */
+/* Sidebar */
+#aside{
+  float:right;
+  width:30%;
+  margin-top:10px;
+}
+
+/* Main layout */
+.main-layout.is-small-screen .content-section{
+    padding: 40px 25px;
+}
+
 /* Media queries */
 
 @media(max-width: 450px){
