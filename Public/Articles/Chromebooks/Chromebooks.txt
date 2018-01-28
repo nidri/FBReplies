@@ -1,0 +1,20 @@
+            <h3>Chromebooks</h3>
+              <p>
+                Chromebooks have been evolving very rapidly compared to any others in laptops segment. This article will provide personal insights on chromebook usage and how they can help save some money. Besides advantages of chromebooks, there are few things in which they don't be useful like other main stream laptops. However, with the help of internet and cloud infrastructure best use can be made out of them.
+              </p>
+              <p>
+                A good chromebook will come for around $300 and with in no time of daily usage one will realize that all the basic things which we do on conventional laptops can be done on chromebook. Another noticable thing while using chromebook is that those extra minutes taken during boot up and shutdown will be saved. At times where we want things to run quickly, this time save won't annoy us. All those basic things we usually do using laptops will surely be done on chromebooks too. There are people who think that because of slow processor and ram things may not run faster, but believe me on chromebooks stuff runs pretty fast. When I say basic stuff, I meant applications like document editing, video watching and all that stuff that can be done in browser.
+              </p>
+              <p>
+                There are things those cannot be done on chromebooks like coding using eclipse or multimedia editing because those applications can't be run on browser based operating system. These type of things which can be done on conventional OS(windows, mac, linux etc) laptops is a major set back for chromebooks. However, with the progress made in the evolution of cloud infrastructure, these heavy and memory hungry applications can be virtually run using a chromebook. You may wonder and ask yourself that, is it really worth spending time on setting up a chromebook to run my apps on a cloud vm or in any other possible way. I would say, it is worth because not only it saves your money but also you gain knowledge on stuff you probably won't get to know on daily basis.
+              </p>
+              <p>
+                A software programmer who owns a chromebook cannot code on it directly. But using a cloud VM this problem can be solved. Today, there are many websites which allows us to have our own VM(Google compute engine, Amazon web services etc) configure and work on them. These websites(Koding etc) charges very less and some comes for free. I have been doing this for months now and it became my daily usage. I almost do all my stuff on my chromebook and a cloud VM. However, there is a limitation to be considered. In order to use cloud VM one has to be connected to internet otherwise it won't work. So, for those who has limited interner connection and those who codes on trains and flights might not be able to complete their job until they connect to internet.
+              </p>
+              <p>
+                For those who works on multimedia stuff, this may be little difficult gadget to depend on becuase chromebooks won't have high performance GPU's and cloud VM solution might also not completely fulfull because of screen display, resolution, pixel density etc limitations. There are ways and can be easily figure out to this problem. So, on a conclusion note, I highlight the point that a chromebook with a cloud VM will save lot of money and also helps gaining some technical knowledge in dealing with VM's. Think about buying a $1000 laptop and a $300 chromebook along with $50-$60 per year VM. For those who are not developers, this cloud VM is also not required and for them just a chromebook is a perfect daily usage gadget.
+              </p>
+              <p>
+                These are just my thoughts for them who are not so aware of these chromebooks and just spend hundreds of dollars on laptops.
+              </p>
+              <h6>//Krishna Santosh Nidri</h6>

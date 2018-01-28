@@ -51,6 +51,7 @@ exports.HandleIncomingMessage = function(req, res, callback){
                fs.readFile('./Public/OtherAssets' + req.url, function(error, stream){
                    if(!error){
                        res.write(stream);
+                       res.end();
                    }
                    else{
                        console.log("Error reading acme-challenge - " + error);
@@ -59,6 +60,9 @@ exports.HandleIncomingMessage = function(req, res, callback){
            }
            else
            {
+               if(req.url.includes("/Articles")){
+                   req.url = req.url + "/Index.html";
+               }
                fs.readFile('.' + req.url, function(error, stream){ // Handle all other files
                 console.log("Started reading - " + req.url);
                  if(!error)
@@ -66,6 +70,12 @@ exports.HandleIncomingMessage = function(req, res, callback){
                    if(req.url.includes("CSS"))
                    {
                      res.writeHead(200, { 'Content-Type': 'text/css' });
+                   }
+                   if(req.url.includes('js'))
+                   {
+                   		res.writeHead(200, {
+                   			'Content-Type': 'application/javascript'
+                   		});
                    }
                      res.write(stream);
                      console.log("Completed reading - " + req.url);

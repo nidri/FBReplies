@@ -1,4 +1,4 @@
-/* Common styles */
+/* Core styles */
 a {
     text-decoration: none;
 }
@@ -8,17 +8,17 @@ a {
 }
 
 /* Card styles */
-.intro-card{
+.intro-card { 
   margin: auto;
 }
 
-.intro-card.mdl-card{
+.intro-card.mdl-card { 
   width: 512px;
 }
 
 .intro-card > .mdl-card__title{
   color: white;
-  height: 176px;
+  height: 200px;
   background: url('../Images/NYCBridge.jpg') center / cover;
 }
 
@@ -41,8 +41,8 @@ a {
 
 .content-section {
   border-radius: 2px;
-  padding: 80px 56px;
-  margin-bottom: 80px;
+  padding: 20px 55px;
+  margin-bottom: 25px;
 }
 
 /* Article content */
@@ -57,7 +57,7 @@ a {
 
 /* Main layout */
 .main-layout.is-small-screen .content-section{
-    padding: 40px 25px;
+    padding: 10px 25px;
 }
 
 /* Media queries */
@@ -66,4 +66,11 @@ a {
   .intro-card.mdl-card{
     width: 300px;
   }
+  
+  .content-section {
+  border-radius: 2px;
+  padding: 20px 55px;
+  margin-bottom: 25px;
+}
+
 }
